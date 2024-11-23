@@ -1,0 +1,452 @@
+
+
+CURSO DE DJANGO
+-------------------
+3 anos con vue.js 
+
+1- pip install virtualenv
+
+2- virtualenv venv [ Es para crear un ambiente virtual ]
+
+3- pip install -r requirements.txt [Es para  los modulos que estamos trabajando]
+
+4- Se crea un archivo requirements.txt para guardar los
+modulos que vamos usar 
+
+5- pip install -r requirements.txt [ Es para instalar los modulos que tenemoe en ese archivo]
+
+6- pip freeze [ Es para ver los modulos que tenemos instado ] 
+
+7-  django-admin startproject core .
+
+
+django-cors-headers 4.4.0 [ ESTE MODELO LO QUE NOS INDICA QUIEN PUEDE CONECARSE A NUESTRO BACKEND ]
+
+15- python manage.py startapp blog [ blog es el nombre del proyecto que vamos a trabajar]
+
+
+8- python manage.py runserver [ Es para correr el servidor]
+
+
+ [ core es una nomeclatura que le estamos dando a nuetro proyecto]
+ django-admin startproject core [ tanbien puedes crearlo sin el punto ]
+7.1 python manage.py startapp blog [ blog es el nombre del proyecto que vamos a trabajar]
+Debes escribir gitnore python
+https://github.com/github/gitignore/blob/main/Python.gitignore
+
+
+Ahora creamos un archivo views.py para crear una vista y hacer un holamundo
+
+---------------------------------------------------------------------------
+
+
+python manage.py clear_cache [ Es para limpiar la cache de django ]
+
+8- python manage.py runserver [ Es para correr el servidor]
+
+9- db.sqlite3 [Esto es la base de datos que se acaba de creear ]
+
+10- python manage.py migrate
+
+    python manage.py migrate
+ [ Es para hacers las migraciones ]
+
+11- python manage.py createsuperuser [ Es para crear un administrador ]
+
+ [ para cambiar la clave de superusario ]
+ python manage.py chancepasword admin
+
+13- ALLOWED_HOSTS = ["*"]
+El estarisco significa todo 
+
+14- WSGI_APPLICATION = 'core.wsgi.application'
+# Este es wrapper para que nuestra app funciones 
+
+
+
+#########################################################################################
+
+
+Video que se lo voy a mandar 
+https://www.youtube.com/watch?v=QX--va1MYEk&ab_channel=Telemundo51Miami
+
+python manage.py makemigrations myapp [ Es para los modelos ]
+
+###############################################################
+
+from myapp.models import Project, Post [Es la forma correcta para haccer a los modelos ]
+
+p =Project(name='Yorvy', lastname='Blanco', ciudad='Caracas', estado='Miranda')
+p
+p.save() [ Es para guardar los datos en la base de datos]
+
+En el archivo views.py 
+
+podemos ejecutar un Hola Mundo mas facil
+
+Creamos una funcion 
+
+
+Un modelo en Django es un tipo especial de objeto que se guarda en la base de datos .
+
+
+
+from django.http import HttpResponse
+
+# Create your models here.
+
+
+def HolaMundo(request):
+    return HttpResponse('<h1>Hola Mundo desde Django</h1>')
+
+
+Despues vamos a nuestra urls.py de core
+
+python manage.py shell [ Es para poder interectuar con el shell ]
+
+Esto es para consultar solo los datos
+Project.objects.all() [ Es para traer todo los datos ]
+
+Project.objects.get(id=1) 
+
+###################################################################
+-----------------------------------------------------------
+
+Podemos crear una vista llamada
+viws.py en la carpeta core
+
+Aqui vemos los fundamento web 
+que son los get request y los post request
+
+El get request es lo que pude la informacion para poder ver 
+El post request es lo que tu envias al servidor haga algo con la informacion
+
+
+Vamos a crear un archivo views.py 
+
+from django.views.generic import View
+from django.shortcuts import render
+
+class HomeView(View):
+	def get(self, request, *args, **kwargs):
+
+		context = {
+
+		}
+
+		return render(request, 'index.html',context)
+
+
+=================================================================
+
+
+DB Browser for SQLite 
+
+
+'DIRS': [os.path.join(BASE_DIR, 'templates')]
+
+
+
+
+
+
+* Creando Formulario de signup
+
+* 
+
+Esto va en el archivo de views.py 
+from django.contrib.auth.forms import UserCreationForm
+
+def HolaMundo(request):
+    title = 'Hello World'
+    return render(request, 'signup.html', {
+         'Mytitle': title
+    })
+
+
+De esta forma me genera un formulario rapido y sencillo 
+def HolaMundo(request):
+    return render(request, 'signup.html', {
+        'form': UserCreationForm
+    })
+
+
+as_p es una propiedad de form
+ejemplo de como usarlo 
+
+{{form.as_p}}
+
+Registro de usuario
+
+15- AUTH_PASSWORD_VALIDATORS = [ ]
+Es para validar  las contrasenas
+
+Se crea un archivo views.py dentro la carpeta core
+from django.views.generic import View
+
+class HomeView(View):
+    def get()
+
+
+https://django-crispy-forms.readthedocs.io/en/latest/install.html
+Es para los formukarios 
+pip install django-crispy-forms
+
+
+   *args, **kwargs 
+   Hace refrencia a cualquier parametro pueda tener
+
+
+   'DIRS': [os.path.join(BASE_DIR, 'templates')],
+Esto en el archivo de setting.py
+os.path.join(BASE_DIR, 'templates')
+
+
+
+16- Hay que crear un archivo .env
+para guardar las variables que sean semsible 
+django-environ==0.11.2
+
+Debemos importarlo en nuestro archivo de setting.py
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG=os.environ.get('DEBUG')
+
+# Es para darle un nombre a la aplicacion que estamos trabajamos
+SITE_NAME = 'mezamaster'
+
+ALLOWED_HOSTS=[
+     "www.mezablanco.com"
+]
+
+
+
+Si es vulnarable se coloca un if
+if not DEBUG:
+    ALLOWED_HOSTS=[
+     "www.mezablanco.com"
+]
+====================================================================
+Cuando trabajamos en un project grande podemos separ las app
+de la siguiente forma
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'core',
+]
+
+DJANGO_APP = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+
+    'core',
+]
+Y para separar las aplicaciones hacemos lo siguiente
+
+INSTALLED_APPS = DJANGO_APP
+
+PROJECT_APPS = [
+
+]
+
+======================================================================
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
+15- python manage.py startapp blog [ blog es el nombre del proyecto que vamos a trabajar]
+
+16- Los modelos es para conectarse a la base de datos
+
+class Post(models.Model):
+    title=models.CharField(max_length=250)
+    content=models.TextField(max_length=250)
+    # TextField es para caracter mas grande
+
+
+17- python manage.py makemigrations blog [ De esta manera hago que 
+todas las migraciones se migren]
+
+18- Depues instalamos tailwind
+
+
+nombre_profe
+curso
+
+
+class Curso(models.Model):
+    curso = models.CharField(max_length=255)
+    descripcion = models.TextField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
+    duracion = models.CharField(max_length=50)
+    instructor = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    temario = models.TextField()
+    
+
+    Para crear un post desde la vista
+    debemos crear un archivo forms.py para manipuolar esa funcionalidad
+    
+
+
+class Usuarios(User):
+    usuario_id = models.AutoField(primary_key=True)
+    User._meta.get_field('username')._unique=False
+    User._meta.get_field('email')._unique=True
+    nombre = models.TextField()
+    apellido_paterno = models.TextField()
+    apellido_materno = models.TextField(null=True)
+    clave_empleado = models.IntegerField(unique=True)
+    direccion = models.TextField(null=True)
+    ciudad = models.TextField(null=True)
+    estado = models.TextField(null=True)
+    telefono = models.CharField(max_length=10,null=True)
+    codigo_postal = models.CharField(max_length=6,null=True)
+    numero_ss = models.CharField(max_length=20,null=True)
+    cierra_caja = models.BooleanField(default=False)
+    activo = models.BooleanField(default=True)
+    perfil = models.ForeignKey(Perfiles,null=True)
+   
+    def __unicode__(self):
+        return '%s %s'%(self._get_pk_val,self.nombre)
+
+
+=============================================
+
+De esta forma se importar varios modelos
+
+from .models import (
+
+
+Si en la calle te mira el culo un señor, te sientes incómoda ya que lo vez como un acosador, pero el viejo que te compra 
+en foto en ropa interior no es pervertido es un amor, porque es tu seguidor!
+ONF..
+
+
+
+
+
+    Post,
+    Comment,
+    PostView,
+    Like
+)
+
+admin.site.register(Post)
+admin.site.register(Comment)
+admin.site.register(PostView)
+admin.site.register(Like)
+---------------------------------------------
+
+Django allouth
+PAGINA 
+https://docs.allauth.org/en/latest/installation/quickstart.html#post-installation
+
+
+
+# Esto viene de la instalacion de django allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+Esto va dentro de app
+
+
+    'django.contrib.messages',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount'
+
+=============================================
+
+
+
+=====================================================================================
+
+El get request [ Es lo que pide la informacion para ver ]
+
+El post request [ Es lo tu envia al servidor ]
+
+
+Esto va en el archivo settind.py 
+
+env = environ.Env()
+environ.Env.read_env()
+
+
+SECRET_KEY = os.environ.get('SECRET_KEY')
+DEBUG=os.environ.get('DEBUG')
+
+Se debe crear un archivo .env  para gurdar 
+los # SECRET_KEY = 'django-insecure-*q5wb)x-#b-$c%box=!pye&yslq^&l0%8yz2rhnj*r7=4^q03$'
+
+
+Como crear un MODELO EN DJANGO
+
+Es como una herecia que estamos haciendo de esta manera
+class User(models.Model):
+    first_name = models.CharField(max_length=30)
+    first_lastname = models.CharField(max_length=30)
+
+
+
+    image = models.ImageFiel()
+    
+   {} es un diccionario vacido, si no le estas pasando 
+   nada es decir context, como mayornamente siempre
+   lo pasamos
+    return render(request, "form.html", {})
+
+
+Es para la imagen
+request.FILES or None
+
+enctype="multipart/form-data"
+
+Es para la imagen y todo esto va en el archivo de settings.py
+Hay que crear un archivo static 
+
+
+=======================================================================================
+
+Esto va dentro del archivo settings.py 
+
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static_root')
+
+
+STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media_root')
+==========================================================================================
+
+======================================================================================
+Archivo de urls.py de core que es el archivo principal de la aplicacion
+
+
+from  django.conf import settings
+from django.conf.urls.static import static
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+============================================================================================
